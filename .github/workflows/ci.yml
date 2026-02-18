@@ -22,20 +22,17 @@ jobs:
         bash -n scripts/restore.sh
         bash -n scripts/start.sh
         bash -n install.sh
-        echo "✓ All scripts have valid syntax"
+        echo "All scripts have valid syntax"
     
     - name: Test backup with mock data
       run: |
         mkdir -p $HOME/.openclaw $HOME/clawd
         echo '{}' > $HOME/.openclaw/openclaw.json
         touch $HOME/clawd/SOUL.md
-        
-        cat > /tmp/test.conf << 'EOF'
-OPENCLAW_CONFIG="$HOME/.openclaw"
-OPENCLAW_WORKSPACE="$HOME/clawd"
-OPENCLAW_CLI="echo"
-BACKUP_DIR="$HOME/test-backup"
-EOF
+        echo 'OPENCLAW_CONFIG="$HOME/.openclaw"' > /tmp/test.conf
+        echo 'OPENCLAW_WORKSPACE="$HOME/clawd"' >> /tmp/test.conf
+        echo 'OPENCLAW_CLI="echo"' >> /tmp/test.conf
+        echo 'BACKUP_DIR="$HOME/test-backup"' >> /tmp/test.conf
         export OPENCLAW_BACKUP_CONFIG=/tmp/test.conf
         scripts/backup.sh -q "CI test"
         ls -la $HOME/test-backup/
