@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Test script syntax
+      run: |
+        bash -n scripts/backup.sh
+        bash -n scripts/restore.sh
+        bash -n scripts/start.sh
+        bash -n install.sh
+        echo "All scripts have valid syntax"
+    
+    - name: Test backup with mock data
+      run: |
+        mkdir -p $HOME/.openclaw $HOME/clawd
+        echo '{}' > $HOME/.openclaw/openclaw.json
+        touch $HOME/clawd/SOUL.md
+        echo 'OPENCLAW_CONFIG="$HOME/.openclaw"' > /tmp/test.conf
+        echo 'OPENCLAW_WORKSPACE="$HOME/clawd"' >> /tmp/test.conf
+        echo 'OPENCLAW_CLI="echo"' >> /tmp/test.conf
+        echo 'BACKUP_DIR="$HOME/test-backup"' >> /tmp/test.conf
+        export OPENCLAW_BACKUP_CONFIG=/tmp/test.conf
+        scripts/backup.sh -q "CI test"
+        ls -la $HOME/test-backup/
+    
+    - name: Test Makefile
+      run: make test
