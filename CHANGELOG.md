@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.2.0] - 2026-02-19
+
+### Added
+- 新增 OpenClaw Skill 支持
+  - 打包为 `.skill` 格式，可直接安装到 OpenClaw
+  - 支持自然语言触发："备份 OpenClaw"、"还原到之前的版本"
+  - 包含完整的备份/还原脚本
+  - 自动识别用户意图并执行相应操作
+
 ## [1.1.1] - 2026-02-19
 
 ### Changed

@@ -20,6 +20,34 @@
 | `oc-restore-simple.sh` | 一键还原（简化版，v1.1.1 通用版） |
 | `oc-start.sh` | 启动并诊断 |
 | `install.sh` | 安装脚本（自动配置） |
+| `openclaw-backup-toolkit.skill` | OpenClaw Skill 包（v1.2.0 新增） |
+
+### 🎁 OpenClaw Skill 支持（v1.2.0 新增）
+
+本项目现在可以作为 **OpenClaw Skill** 使用！
+
+**安装方式：**
+
+1. 下载 skill 文件
+   ```bash
+   # 从 GitHub Releases 下载
+   wget https://github.com/yf2003y/openclaw-backup-toolkit/releases/download/v1.2.0/openclaw-backup-toolkit.skill
+   ```
+
+2. 安装到 OpenClaw
+   ```bash
+   # 将 .skill 文件放到 OpenClaw skills 目录
+   cp openclaw-backup-toolkit.skill ~/.openclaw/skills/
+   # 或放到用户目录
+   cp openclaw-backup-toolkit.skill ~/clawd/skills/
+   ```
+
+3. 使用
+   
+   安装后，只需对 OpenClaw 说：
+   - "备份 OpenClaw" - 自动执行备份
+   - "还原到之前的版本" - 启动交互式还原
+   - "查看备份" - 列出所有备份
 
 ## 🚀 快速开始
 
@@ -380,7 +408,8 @@ oc-restore.sh  # 选择 emergency-*-before-restore-*.tar.gz
 
 | 版本 | 日期 | 说明 |
 |------|------|------|
-| **1.1.1** | **2026-02-19** | **`restore-simple.sh` 改为通用版本，支持配置文件和环境变量** |
+| **1.2.0** | **2026-02-19** | **新增 OpenClaw Skill 支持，可直接安装使用** |
+| 1.1.1 | 2026-02-19 | `restore-simple.sh` 改为通用版本，支持配置文件和环境变量 |
 | 1.1.0 | 2026-02-19 | 新增简化版还原工具 `restore-simple.sh` |
 | 1.0.0 | 2026-02-18 | 初始版本，通用备份/还原/启动工具 |
 
