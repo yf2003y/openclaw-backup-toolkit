@@ -1,11 +1,21 @@
 #!/bin/bash
-# OpenClaw 交互式还原工具 (无颜色版本)
+# OpenClaw 交互式还原工具 (通用版本)
+# 自动读取配置文件，适配任意 OpenClaw 安装
 
 set -e
 
-BACKUP_DIR="/Users/yangfan/clawd/backups"
-WORKSPACE_DIR="/Users/yangfan/clawd"
-CONFIG_DIR="$HOME/.openclaw"
+# 查找配置文件
+CONFIG_FILE="${OPENCLAW_BACKUP_CONFIG:-$HOME/.openclaw-backup.conf}"
+
+# 加载配置
+if [ -f "$CONFIG_FILE" ]; then
+    source "$CONFIG_FILE"
+fi
+
+# 使用配置或默认值
+BACKUP_DIR="${BACKUP_DIR:-$HOME/clawd/backups}"
+WORKSPACE_DIR="${OPENCLAW_WORKSPACE:-$HOME/clawd}"
+CONFIG_DIR="${OPENCLAW_CONFIG:-$HOME/.openclaw}"
 EMERGENCY_DIR="$BACKUP_DIR/emergency"
 
 # 显示标题
@@ -94,7 +104,7 @@ create_emergency_backup() {
     # 紧急备份 config
     local cfg_emergency="$EMERGENCY_DIR/emergency-config-before-restore-${timestamp}.tar.gz"
     if [ -d "$CONFIG_DIR" ]; then
-        if tar czf "$cfg_emergency" -C ~ .openclaw 2>/dev/null; then
+        if tar czf "$cfg_emergency" -C ~ $(basename "$CONFIG_DIR") 2>/dev/null; then
             local cfg_size=$(du -h "$cfg_emergency" | cut -f1)
             echo "  ✅ Config 紧急备份: ${cfg_size}"
         else
@@ -283,6 +293,11 @@ main() {
     
     if [ ! -d "$BACKUP_DIR" ]; then
         echo "❌ 备份目录不存在: $BACKUP_DIR"
+        echo ""
+        echo "提示：你可以通过以下方式指定备份目录："
+        echo "  1. 创建配置文件 ~/.openclaw-backup.conf"
+        echo "  2. 设置环境变量: export BACKUP_DIR=/your/backup/path"
+        echo "  3. 先运行 ./install.sh 进行安装"
         exit 1
     fi
     
@@ -370,6 +385,12 @@ if [ $# -gt 0 ]; then
             echo "选项:"
             echo "  -l, --list     按时间点列出备份"
             echo "  -h, --help     显示帮助"
+            echo ""
+            echo "环境变量:"
+            echo "  BACKUP_DIR              备份目录"
+            echo "  OPENCLAW_WORKSPACE      Workspace 目录"
+            echo "  OPENCLAW_CONFIG         Config 目录"
+            echo "  OPENCLAW_BACKUP_CONFIG  配置文件路径"
             echo ""
             echo "不带参数运行将进入交互式菜单"
             exit 0
