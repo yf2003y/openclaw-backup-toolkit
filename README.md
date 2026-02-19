@@ -17,7 +17,7 @@
 |------|------|
 | `oc-backup.sh` | 手工一键备份 |
 | `oc-restore.sh` | 一键还原（完整版） |
-| `oc-restore-simple.sh` | 一键还原（简化版，v1.1.0 新增） |
+| `oc-restore-simple.sh` | 一键还原（简化版，v1.1.1 通用版） |
 | `oc-start.sh` | 启动并诊断 |
 | `install.sh` | 安装脚本（自动配置） |
 
@@ -103,7 +103,7 @@ oc-restore.sh
 
 #### 简化版 (`oc-restore-simple.sh`) - v1.1.0 新增
 
-无颜色依赖，兼容所有终端环境。
+通用版本，无颜色依赖，兼容所有终端环境。支持配置文件和环境变量。
 
 ```bash
 # 启动交互式菜单
@@ -118,6 +118,21 @@ oc-restore-simple.sh -l
 - 🔢 交互式编号选择还原点
 - 🎯 支持完整还原 / 仅还原 Workspace / 仅还原 Config
 - 🛡️ 还原前自动创建紧急备份
+- ⚙️ 通用适配 - 支持配置文件和环境变量
+
+**配置方式（三选一）：**
+
+1. **安装后使用（推荐）** - 自动读取 `~/.openclaw-backup.conf`
+2. **环境变量**
+   ```bash
+   export BACKUP_DIR=/path/to/backups
+   export OPENCLAW_WORKSPACE=/path/to/workspace
+   ./scripts/restore-simple.sh
+   ```
+3. **命令行查看帮助**
+   ```bash
+   ./scripts/restore-simple.sh -h
+   ```
 
 ### 启动工具
 
@@ -276,7 +291,8 @@ oc-restore.sh  # 选择 emergency-*-before-restore-*.tar.gz
 
 | 版本 | 日期 | 说明 |
 |------|------|------|
-| **1.1.0** | **2026-02-19** | **新增简化版还原工具 `restore-simple.sh`** |
+| **1.1.1** | **2026-02-19** | **`restore-simple.sh` 改为通用版本，支持配置文件和环境变量** |
+| 1.1.0 | 2026-02-19 | 新增简化版还原工具 `restore-simple.sh` |
 | 1.0.0 | 2026-02-18 | 初始版本，通用备份/还原/启动工具 |
 
 ## 📄 许可证

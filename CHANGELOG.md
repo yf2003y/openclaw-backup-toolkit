@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.1.1] - 2026-02-19
+
+### Changed
+- `restore-simple.sh` 改为通用版本
+  - 支持配置文件 `~/.openclaw-backup.conf`
+  - 支持环境变量 `BACKUP_DIR`, `OPENCLAW_WORKSPACE`, `OPENCLAW_CONFIG`
+  - 智能默认值，适配任意 OpenClaw 安装路径
+  - 友好的错误提示和配置指导
+
 ## [1.1.0] - 2026-02-19
 
 ### Added
