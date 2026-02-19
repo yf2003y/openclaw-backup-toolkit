@@ -16,7 +16,8 @@
 | 工具 | 说明 |
 |------|------|
 | `oc-backup.sh` | 手工一键备份 |
-| `oc-restore.sh` | 一键还原 |
+| `oc-restore.sh` | 一键还原（完整版） |
+| `oc-restore-simple.sh` | 一键还原（简化版，v1.1.0 新增） |
 | `oc-start.sh` | 启动并诊断 |
 | `install.sh` | 安装脚本（自动配置） |
 
@@ -81,6 +82,8 @@ oc-backup.sh --cleanup
 
 ### 还原工具
 
+#### 完整版 (`oc-restore.sh`)
+
 ```bash
 # 启动交互式还原
 oc-restore.sh
@@ -97,6 +100,24 @@ oc-restore.sh
 3. 创建当前状态的紧急备份
 4. 执行还原
 5. 验证关键文件
+
+#### 简化版 (`oc-restore-simple.sh`) - v1.1.0 新增
+
+无颜色依赖，兼容所有终端环境。
+
+```bash
+# 启动交互式菜单
+oc-restore-simple.sh
+
+# 快速查看备份列表
+oc-restore-simple.sh -l
+```
+
+**功能特点：**
+- 📦 按时间点分组显示备份（自动匹配 workspace + config）
+- 🔢 交互式编号选择还原点
+- 🎯 支持完整还原 / 仅还原 Workspace / 仅还原 Config
+- 🛡️ 还原前自动创建紧急备份
 
 ### 启动工具
 
@@ -255,6 +276,7 @@ oc-restore.sh  # 选择 emergency-*-before-restore-*.tar.gz
 
 | 版本 | 日期 | 说明 |
 |------|------|------|
+| **1.1.0** | **2026-02-19** | **新增简化版还原工具 `restore-simple.sh`** |
 | 1.0.0 | 2026-02-18 | 初始版本，通用备份/还原/启动工具 |
 
 ## 📄 许可证
