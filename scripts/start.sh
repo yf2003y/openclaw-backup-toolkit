@@ -43,8 +43,8 @@ print_status() {
     local message=$2
     case $status in
         ok) echo -e "${GREEN}✓${NC} $message" ;;
-        warn) echo -e "${YELLOW}⚠${NC} $message"; ((WARNINGS++)) ;;
-        error) echo -e "${RED}✗${NC} $message"; ((ERRORS++)) ;;
+        warn) echo -e "${YELLOW}⚠${NC} $message"; ((WARNINGS++)) || true ;;
+        error) echo -e "${RED}✗${NC} $message"; ((ERRORS++)) || true ;;
         info) echo -e "${BLUE}ℹ${NC} $message" ;;
         step) echo -e "\n${CYAN}▶ $message${NC}" ;;
     esac

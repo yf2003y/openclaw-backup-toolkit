@@ -161,7 +161,7 @@ do_backup() {
             -C "$WORKSPACE_DIR" . 2>/dev/null; then
             local ws_size=$(du -h "$workspace_file" | cut -f1)
             echo "  ✓ Workspace 备份成功: $(basename $workspace_file) (${ws_size})"
-            ((success_count++))
+            success_count=$((success_count + 1))
         else
             echo "  ✗ Workspace 备份失败"
         fi
@@ -179,9 +179,9 @@ do_backup() {
             fi
             
             if tar czf "$config_file" -C "$(dirname $CONFIG_DIR)" "$(basename $CONFIG_DIR)" 2>/dev/null; then
-                local cfg_size=$(du -h "$config_file" | cut -f1)
-                echo "  ✓ Config 备份成功: $(basename $config_file) (${cfg_size})"
-                ((success_count++))
+            local cfg_size=$(du -h "$config_file" | cut -f1)
+            echo "  ✓ Config 备份成功: $(basename $config_file) (${cfg_size})"
+            success_count=$((success_count + 1))
             else
                 echo "  ✗ Config 备份失败"
             fi

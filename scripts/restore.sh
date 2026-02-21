@@ -80,7 +80,7 @@ list_backups() {
         
         printf "  [%d] %s (%s, %s)\n" "$idx" "$filename" "$formatted_date" "$size"
         echo "$idx|$backup" >> "$TEMP_DIR/workspace_map.txt"
-        ((idx++))
+        ((idx++)) || true
     done
     
     echo ""
@@ -95,7 +95,7 @@ list_backups() {
         
         printf "  [%d] %s (%s, %s)\n" "$idx" "$filename" "$formatted_date" "$size"
         echo "$idx|$backup" >> "$TEMP_DIR/config_map.txt"
-        ((idx++))
+        ((idx++)) || true
     done
     
     echo ""
@@ -206,7 +206,7 @@ verify_restore() {
             echo "  ✓ $file 存在"
         else
             echo "  ✗ $file 缺失！"
-            ((errors++))
+            ((errors++)) || true
         fi
     done
     
@@ -215,7 +215,7 @@ verify_restore() {
         echo "  ✓ Config 目录正常"
     else
         echo "  ✗ Config 目录异常！"
-        ((errors++))
+        ((errors++)) || true
     fi
     
     if [ $errors -eq 0 ]; then

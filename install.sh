@@ -250,7 +250,7 @@ verify_installation() {
         source "$CONFIG_FILE"
     else
         print_error "配置文件不存在"
-        ((errors++))
+        ((errors++)) || true
     fi
     
     # 检查目录
@@ -258,14 +258,14 @@ verify_installation() {
         print_ok "配置目录: $OPENCLAW_CONFIG"
     else
         print_error "配置目录不存在: $OPENCLAW_CONFIG"
-        ((errors++))
+        ((errors++)) || true
     fi
     
     if [ -d "$OPENCLAW_WORKSPACE" ]; then
         print_ok "Workspace 目录: $OPENCLAW_WORKSPACE"
     else
         print_error "Workspace 目录不存在: $OPENCLAW_WORKSPACE"
-        ((errors++))
+        ((errors++)) || true
     fi
     
     if [ -d "$BACKUP_DIR" ]; then
@@ -281,7 +281,7 @@ verify_installation() {
         print_ok "备份功能正常"
     else
         print_error "备份功能异常"
-        ((errors++))
+        ((errors++)) || true
     fi
     
     if [ $errors -eq 0 ]; then

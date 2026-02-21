@@ -76,7 +76,7 @@ list_by_timestamp() {
             # 保存选择信息
             echo "$idx|$date_part|$batch|$time_part|$ws_file|$cfg_file" >> /tmp/backup_selection.txt
             
-            ((idx++))
+            ((idx++)) || true
         fi
     done
     
